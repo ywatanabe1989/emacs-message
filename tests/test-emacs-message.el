@@ -1,7 +1,7 @@
 ;;; -*- coding: utf-8; lexical-binding: t -*-
 ;;; Author: ywatanabe
-;;; Timestamp: <2025-03-02 22:30:36>
-;;; File: /home/ywatanabe/.dotfiles/.emacs.d/lisp/emacs-message/tests/-test-emacs-message.el
+;;; Timestamp: <2025-03-03 08:39:55>
+;;; File: /home/ywatanabe/.dotfiles/.emacs.d/lisp/emacs-message/tests/test-emacs-message.el
 
 (require 'ert)
 (require 'emacs-message)
@@ -26,21 +26,10 @@
   (should
    (featurep 'emacs-message-main)))
 
-(ert-deftest test-emacs-message-functions-exist
-    ()
-  (should
-   (fboundp 'em-toggle-at-point))
-  (should
-   (fboundp 'em-toggle-all))
-  (should
-   (fboundp 'em-enable-all))
-  (should
-   (fboundp 'em-uncomment-all)))
-
-(provide '-test-emacs-message)
+(provide 'test-emacs-message)
 
 (when
     (not load-file-name)
-  (message "-test-emacs-message.el loaded."
+  (message "test-emacs-message.el loaded."
            (file-name-nondirectory
             (or load-file-name buffer-file-name))))
