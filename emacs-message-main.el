@@ -1,10 +1,106 @@
 ;;; -*- coding: utf-8; lexical-binding: t -*-
 ;;; Author: ywatanabe
-;;; Timestamp: <2025-03-02 22:28:45>
+;;; Timestamp: <2025-03-03 07:20:23>
 ;;; File: /home/ywatanabe/.dotfiles/.emacs.d/lisp/emacs-message/emacs-message-main.el
+
+(require 'emacs-message-elisp)
+(require 'emacs-message-python)
 
 ;; Main
 ;; ----------------------------------------
+
+(defun em-toggle-buffer
+    ()
+  "Toggle buffer message statements based on current buffer's language."
+  (interactive)
+  (let
+      ((lang
+        (--em-get-language-type)))
+    (cond
+     ((eq lang 'elisp)
+      (--em-toggle-buffer-elisp))
+     ((eq lang 'python)
+      (--em-toggle-buffer-python))
+     (t
+      (message "Unsupported language mode")))))
+
+(defun em-uncomment-buffer
+    ()
+  "Uncomment buffer message statements based on current buffer's language."
+  (interactive)
+  (let
+      ((lang
+        (--em-get-language-type)))
+    (cond
+     ((eq lang 'elisp)
+      (--em-uncomment-buffer-elisp))
+     ((eq lang 'python)
+      (--em-uncomment-buffer-python))
+     (t
+      (message "Unsupported language mode")))))
+
+(defun em-comment-out-buffer
+    ()
+  "Comment-Out buffer message statements based on current buffer's language."
+  (interactive)
+  (let
+      ((lang
+        (--em-get-language-type)))
+    (cond
+     ((eq lang 'elisp)
+      (--em-comment-out-buffer-elisp))
+     ((eq lang 'python)
+      (--em-comment-out-buffer-python))
+     (t
+      (message "Unsupported language mode")))))
+
+;; Single
+;; ----------------------------------------
+
+(defun em-toggle-comment-out-next
+    ()
+  "Comment out next printing statement."
+  (interactive)
+  (let
+      ((lang
+        (--em-get-language-type)))
+    (cond
+     ((eq lang 'elisp)
+      (--em-toggle-comment-next-elisp))
+     ((eq lang 'python)
+      (--em-toggle-comment-next-python))
+     (t
+      (message "Unsupported language mode")))))
+
+(defun em-uncomment-next
+    ()
+  "Uncomment next printing statement."
+  (interactive)
+  (let
+      ((lang
+        (--em-get-language-type)))
+    (cond
+     ((eq lang 'elisp)
+      (--em-uncomment-next-elisp))
+     ((eq lang 'python)
+      (--em-uncomment-next-python))
+     (t
+      (message "Unsupported language mode")))))
+
+(defun em-toggle-comment-next
+    ()
+  "Toggle message statements at point based on current buffer's language."
+  (interactive)
+  (let
+      ((lang
+        (--em-get-language-type)))
+    (cond
+     ((eq lang 'elisp)
+      (--em-toggle-comment-next-elisp))
+     ((eq lang 'python)
+      (--em-toggle-comment-next-python))
+     (t
+      (message "Unsupported language mode")))))
 
 (defun em-toggle-at-point
     ()
@@ -18,51 +114,6 @@
       (--em-toggle-at-point-elisp))
      ((eq lang 'python)
       (--em-toggle-at-point-python))
-     (t
-      (message "Unsupported language mode")))))
-
-(defun em-toggle-all
-    ()
-  "Toggle all message statements based on current buffer's language."
-  (interactive)
-  (let
-      ((lang
-        (--em-get-language-type)))
-    (cond
-     ((eq lang 'elisp)
-      (--em-toggle-all-elisp))
-     ((eq lang 'python)
-      (--em-toggle-all-python))
-     (t
-      (message "Unsupported language mode")))))
-
-(defun em-enable-all
-    ()
-  "Enable all message statements based on current buffer's language."
-  (interactive)
-  (let
-      ((lang
-        (--em-get-language-type)))
-    (cond
-     ((eq lang 'elisp)
-      (--em-enable-all-elisp))
-     ((eq lang 'python)
-      (--em-enable-all-python))
-     (t
-      (message "Unsupported language mode")))))
-
-(defun em-disable-all
-    ()
-  "Disable all message statements based on current buffer's language."
-  (interactive)
-  (let
-      ((lang
-        (--em-get-language-type)))
-    (cond
-     ((eq lang 'elisp)
-      (--em-disable-all-elisp))
-     ((eq lang 'python)
-      (--em-disable-all-python))
      (t
       (message "Unsupported language mode")))))
 

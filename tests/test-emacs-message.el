@@ -35,7 +35,7 @@
   (should
    (fboundp 'em-enable-all))
   (should
-   (fboundp 'em-disable-all)))
+   (fboundp 'em-uncomment-all)))
 
 (provide '-test-emacs-message)
 
