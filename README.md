@@ -32,7 +32,7 @@ git clone https://github.com/ywatanabe1989/emacs-message.git ~/.emacs.d/lisp/ema
 | `M-x em-toggle-at-point` | Toggle comment status of message statement at cursor position |
 | `M-x em-toggle-all` | Toggle all message statements in the buffer |
 | `M-x em-enable-all` | Enable (uncomment) all message statements in buffer |
-| `M-x em-disable-all` | Disable (comment out) all message statements in buffer |
+| `M-x em-uncomment-all` | Uncomment (comment out) all message statements in buffer |
 
 ### Supported Languages
 

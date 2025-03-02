@@ -1,67 +1,269 @@
 ;;; -*- coding: utf-8; lexical-binding: t -*-
 ;;; Author: ywatanabe
-;;; Timestamp: <2025-03-03 00:22:07>
+;;; Timestamp: <2025-03-03 08:11:37>
 ;;; File: /home/ywatanabe/.dotfiles/.emacs.d/lisp/emacs-message/tests/test-emacs-message-elisp.el
 
 (require 'ert)
 (require 'emacs-message-elisp)
 
-(ert-deftest test--em-toggle-at-point-elisp-active-to-comment
+(ert-deftest test-elisp-find-next-message-clause
     ()
-  (with-temp-buffer
-    (insert "(defun test ()\n  (message \"test\"))\n")
-    (goto-char
-     (point-min))
-    (forward-line 1)
-    (--em-toggle-at-point-elisp)
-    (should
-     (string=
-      (buffer-string)
-      "(defun test ()\n  ;; (message \"test\"))\n"))))
+  (let
+      ((temp-file
+        (make-temp-file "emacs-message-test-" nil ".el")))
+    (unwind-protect
+        (progn
+          (with-temp-file temp-file
+            (insert "(defun foo ()\n  (message \"test\"))\n"))
+          (with-current-buffer
+              (find-file-noselect temp-file)
+            (emacs-lisp-mode)
+            (goto-char
+             (point-min))
+            (let
+                ((result
+                  (--em-find-next-message-clause-elisp)))
+              (should result)
+              (should
+               (=
+                (car result)
+                17))
+              (should
+               (=
+                (cadr result)
+                33))
+              (set-buffer-modified-p nil)
+              (kill-buffer))))
+      (delete-file temp-file))))
 
-(ert-deftest test--em-toggle-at-point-elisp-comment-to-active
+(ert-deftest test-elisp-find-next-message-clause-multiline
     ()
-  (with-temp-buffer
-    (insert "(defun test ()\n  ;; (message \"test\"))\n")
-    (goto-char
-     (point-min))
-    (forward-line 1)
-    (--em-toggle-at-point-elisp)
-    (should
-     (string=
-      (buffer-string)
-      "(defun test ()\n  (message \"test\"))\n"))))
+  (let
+      ((temp-file
+        (make-temp-file "emacs-message-test-" nil ".el")))
+    (unwind-protect
+        (progn
+          (with-temp-file temp-file
+            (insert "(defun foo ()\n  (message\n   \"test\"\n   \"more\"))\n"))
+          (with-current-buffer
+              (find-file-noselect temp-file)
+            (emacs-lisp-mode)
+            (goto-char
+             (point-min))
+            (let
+                ((result
+                  (--em-find-next-message-clause-elisp)))
+              (should result)
+              (should
+               (=
+                (car result)
+                17))
+              (should
+               (=
+                (cadr result)
+                46))
+              (set-buffer-modified-p nil)
+              (kill-buffer))))
+      (delete-file temp-file))))
 
-(ert-deftest test--em-toggle-all-elisp
+(ert-deftest test-elisp-commented-out-p
     ()
-  (with-temp-buffer
-    (insert "(defun test ()\n    ;; (message \"test1\")\n    (message \"test2\"))\n")
-    (--em-toggle-all-elisp)
-    (should
-     (string=
-      (buffer-string)
-      "(defun test ()\n    (message \"test1\")\n    ;; (message \"test2\"))\n"))))
+  (let
+      ((temp-file
+        (make-temp-file "emacs-message-test-" nil ".el")))
+    (unwind-protect
+        (progn
+          (with-temp-file temp-file
+            (insert ";; (message \"test\")\n(message \"not-commented\")"))
+          (with-current-buffer
+              (find-file-noselect temp-file)
+            (emacs-lisp-mode)
+            (goto-char
+             (point-min))
+            (should
+             (--em-commented-out-p-elisp))
+            (forward-line)
+            (should-not
+             (--em-commented-out-p-elisp))
+            (set-buffer-modified-p nil)
+            (kill-buffer)))
+      (delete-file temp-file))))
 
-(ert-deftest test--em-enable-all-elisp
+(ert-deftest test-elisp-comment-out-next
     ()
-  (with-temp-buffer
-    (insert "(defun test ()\n  ;; (message \"test1\")\n  (message \"test2\"))\n")
-    (--em-enable-all-elisp)
-    (should
-     (string=
-      (buffer-string)
-      "(defun test ()\n  (message \"test1\")\n  (message \"test2\"))\n"))))
+  (let
+      ((temp-file
+        (make-temp-file "emacs-message-test-" nil ".el")))
+    (unwind-protect
+        (progn
+          (with-temp-file temp-file
+            (insert "(defun foo ()\n  (message \"test\"))\n"))
+          (with-current-buffer
+              (find-file-noselect temp-file)
+            (emacs-lisp-mode)
+            (goto-char
+             (point-min))
+            (--em-comment-out-next-elisp)
+            (should
+             (string-match-p ";;\\s-*(message \"test\")"
+                             (buffer-string)))
+            (set-buffer-modified-p nil)
+            (kill-buffer)))
+      (delete-file temp-file))))
 
-(ert-deftest test--em-disable-all-elisp
+(ert-deftest test-elisp-uncomment-next
     ()
-  (with-temp-buffer
-    (insert "(defun test ()\n    (message \"test1\")\n    ;; (message \"test2\")\n)")
+  (let
+      ((temp-file
+        (make-temp-file "emacs-message-test-" nil ".el")))
+    (unwind-protect
+        (progn
+          (with-temp-file temp-file
+            (insert "(defun foo ()\n  ;; (message \"test\"))\n"))
+          (with-current-buffer
+              (find-file-noselect temp-file)
+            (emacs-lisp-mode)
+            (goto-char
+             (point-min))
+            (--em-uncomment-next-elisp)
+            (should
+             (string-match-p "(message \"test\")"
+                             (buffer-string)))
+            (should-not
+             (string-match-p ";;"
+                             (buffer-string)))
+            (set-buffer-modified-p nil)
+            (kill-buffer)))
+      (delete-file temp-file))))
 
-    (--em-disable-all-elisp)
-    (should
-     (string=
-      (buffer-string)
-      "(defun test ()\n    ;; (message \"test1\")\n    ;; (message \"test2\")\n)"))))
+(ert-deftest test-elisp-toggle-comment-next-commented
+    ()
+  (let
+      ((temp-file
+        (make-temp-file "emacs-message-test-" nil ".el")))
+    (unwind-protect
+        (progn
+          (with-temp-file temp-file
+            (insert "(defun foo ()\n  ;; (message \"test\"))\n"))
+          (with-current-buffer
+              (find-file-noselect temp-file)
+            (emacs-lisp-mode)
+            (goto-char
+             (point-min))
+            (--em-toggle-comment-next-elisp)
+            (should
+             (string-match-p "(message \"test\")"
+                             (buffer-string)))
+            (should-not
+             (string-match-p ";;"
+                             (buffer-string)))
+            (set-buffer-modified-p nil)
+            (kill-buffer)))
+      (delete-file temp-file))))
+
+(ert-deftest test-elisp-toggle-comment-next-uncommented
+    ()
+  (let
+      ((temp-file
+        (make-temp-file "emacs-message-test-" nil ".el")))
+    (unwind-protect
+        (progn
+          (with-temp-file temp-file
+            (insert "(defun foo ()\n  (message \"test\"))\n"))
+          (with-current-buffer
+              (find-file-noselect temp-file)
+            (emacs-lisp-mode)
+            (goto-char
+             (point-min))
+            (--em-toggle-comment-next-elisp)
+            (should
+             (string-match-p ";;\\s-*(message \"test\")"
+                             (buffer-string)))
+            (set-buffer-modified-p nil)
+            (kill-buffer)))
+      (delete-file temp-file))))
+
+(ert-deftest test-elisp-toggle-buffer
+    ()
+  (let
+      ((temp-file
+        (make-temp-file "emacs-message-test-" nil ".el")))
+    (unwind-protect
+        (progn
+          (with-temp-file temp-file
+            (insert "(defun foo ()\n  (message \"test1\")\n  (message \"test2\"))\n"))
+          (with-current-buffer
+              (find-file-noselect temp-file)
+            (emacs-lisp-mode)
+            (--em-toggle-buffer-elisp)
+            (sleep-for 0.1)
+            (should
+             (string-match-p ";;\\s-*(message \"test1\")"
+                             (buffer-string)))
+            (should
+             (string-match-p ";;\\s-*(message \"test2\")"
+                             (buffer-string)))
+            (--em-toggle-buffer-elisp)
+            (should
+             (string-match-p "(message \"test1\")"
+                             (buffer-string)))
+            (should
+             (string-match-p "(message \"test2\")"
+                             (buffer-string)))
+            (set-buffer-modified-p nil)
+            (kill-buffer)))
+      (delete-file temp-file))))
+
+(ert-deftest test-elisp-uncomment-buffer
+    ()
+  (let
+      ((temp-file
+        (make-temp-file "emacs-message-test-" nil ".el")))
+    (unwind-protect
+        (progn
+          (with-temp-file temp-file
+            (insert "(defun foo ()\n  ;; (message \"test1\")\n  ;; (message \"test2\"))\n"))
+          (with-current-buffer
+              (find-file-noselect temp-file)
+            (emacs-lisp-mode)
+            (save-buffer)
+            (let
+                ((inhibit-message t)
+                 (buffer-contents
+                  (buffer-string)))
+              (--em-uncomment-buffer-elisp))
+            (should
+             (string-match-p "(message \"test1\")"
+                             (buffer-string)))
+            (should
+             (string-match-p "(message \"test2\")"
+                             (buffer-string)))
+            (set-buffer-modified-p nil)
+            (kill-buffer)))
+      (delete-file temp-file))))
+
+(ert-deftest test-elisp-comment-out-buffer
+    ()
+  (let
+      ((temp-file
+        (make-temp-file "emacs-message-test-" nil ".el")))
+    (unwind-protect
+        (progn
+          (with-temp-file temp-file
+            (insert "(defun foo ()\n  (message \"test1\")\n  (message \"test2\"))\n"))
+          (with-current-buffer
+              (find-file-noselect temp-file)
+            (emacs-lisp-mode)
+            (--em-comment-out-buffer-elisp)
+            (should
+             (string-match-p ";;\\s-*(message \"test1\")"
+                             (buffer-string)))
+            (should
+             (string-match-p ";;\\s-*(message \"test2\")"
+                             (buffer-string)))
+            (set-buffer-modified-p nil)
+            (kill-buffer)))
+      (delete-file temp-file))))
 
 (provide 'test-emacs-message-elisp)
 

@@ -1,41 +1,57 @@
 * Test Results Summary
 
-- Passed: 21
+- Passed: 37
 - Failed: 0
 - Skipped: 0
 - Timeout: 0
 - Duplicates: 0
-- Total: 21
+- Total: 37
 - Success Rate: 100.0%
 
 * Test Coverage Metrics
 
 - Test Files: 4
-- Test Density: 5.25 tests per file
+- Test Density: 9.25 tests per file
 
-** Passed Tests (21)
+** Passed Tests (37)
 *** test-emacs-message.el (5 tests)
 - [[file:test-emacs-message.el::test-emacs-message-loadable][test-emacs-message-loadable]]
 - [[file:test-emacs-message.el::test-emacs-message-elisp-loadable][test-emacs-message-elisp-loadable]]
 - [[file:test-emacs-message.el::test-emacs-message-python-loadable][test-emacs-message-python-loadable]]
 - [[file:test-emacs-message.el::test-emacs-message-main-loadable][test-emacs-message-main-loadable]]
 - [[file:test-emacs-message.el::test-emacs-message-functions-exist][test-emacs-message-functions-exist]]
-*** test-emacs-message-elisp.el (5 tests)
-- [[file:test-emacs-message-elisp.el::test--em-toggle-at-point-elisp-active-to-comment][test--em-toggle-at-point-elisp-active-to-comment]]
-- [[file:test-emacs-message-elisp.el::test--em-toggle-at-point-elisp-comment-to-active][test--em-toggle-at-point-elisp-comment-to-active]]
-- [[file:test-emacs-message-elisp.el::test--em-toggle-all-elisp][test--em-toggle-all-elisp]]
-- [[file:test-emacs-message-elisp.el::test--em-enable-all-elisp][test--em-enable-all-elisp]]
-- [[file:test-emacs-message-elisp.el::test--em-disable-all-elisp][test--em-disable-all-elisp]]
-*** test-emacs-message-main.el (6 tests)
-- [[file:test-emacs-message-main.el::test--em-get-language-type-elisp][test--em-get-language-type-elisp]]
-- [[file:test-emacs-message-main.el::test--em-get-language-type-elisp-by-get-language-type][test--em-get-language-type-elisp-by-get-language-type]]
-- [[file:test-emacs-message-main.el::test--em-get-language-type-python][test--em-get-language-type-python]]
+*** test-emacs-message-elisp.el (10 tests)
+- [[file:test-emacs-message-elisp.el::test-elisp-find-next-message-clause][test-elisp-find-next-message-clause]]
+- [[file:test-emacs-message-elisp.el::test-elisp-find-next-message-clause-multiline][test-elisp-find-next-message-clause-multiline]]
+- [[file:test-emacs-message-elisp.el::test-elisp-commented-out-p][test-elisp-commented-out-p]]
+- [[file:test-emacs-message-elisp.el::test-elisp-comment-out-next][test-elisp-comment-out-next]]
+- [[file:test-emacs-message-elisp.el::test-elisp-uncomment-next][test-elisp-uncomment-next]]
+- [[file:test-emacs-message-elisp.el::test-elisp-toggle-comment-next-commented][test-elisp-toggle-comment-next-commented]]
+- [[file:test-emacs-message-elisp.el::test-elisp-toggle-comment-next-uncommented][test-elisp-toggle-comment-next-uncommented]]
+- [[file:test-emacs-message-elisp.el::test-elisp-toggle-buffer][test-elisp-toggle-buffer]]
+- [[file:test-emacs-message-elisp.el::test-elisp-uncomment-buffer][test-elisp-uncomment-buffer]]
+- [[file:test-emacs-message-elisp.el::test-elisp-comment-out-buffer][test-elisp-comment-out-buffer]]
+*** test-emacs-message-main.el (18 tests)
+- [[file:test-emacs-message-main.el::test--em-get-language-type-elisp-by-mode][test--em-get-language-type-elisp-by-mode]]
+- [[file:test-emacs-message-main.el::test--em-get-language-type-elisp-by-filename][test--em-get-language-type-elisp-by-filename]]
+- [[file:test-emacs-message-main.el::test--em-get-language-type-python-by-mode][test--em-get-language-type-python-by-mode]]
+- [[file:test-emacs-message-main.el::test--em-get-language-type-python-by-filename][test--em-get-language-type-python-by-filename]]
 - [[file:test-emacs-message-main.el::test--em-get-language-type-unsupported][test--em-get-language-type-unsupported]]
+- [[file:test-emacs-message-main.el::test-em-toggle-buffer-dispatches-elisp][test-em-toggle-buffer-dispatches-elisp]]
+- [[file:test-emacs-message-main.el::test-em-toggle-buffer-dispatches-python][test-em-toggle-buffer-dispatches-python]]
+- [[file:test-emacs-message-main.el::test-em-uncomment-buffer-dispatches-elisp][test-em-uncomment-buffer-dispatches-elisp]]
+- [[file:test-emacs-message-main.el::test-em-uncomment-buffer-dispatches-python][test-em-uncomment-buffer-dispatches-python]]
+- [[file:test-emacs-message-main.el::test-em-comment-out-buffer-dispatches-elisp][test-em-comment-out-buffer-dispatches-elisp]]
+- [[file:test-emacs-message-main.el::test-em-comment-out-buffer-dispatches-python][test-em-comment-out-buffer-dispatches-python]]
+- [[file:test-emacs-message-main.el::test-em-toggle-comment-next-dispatches-elisp][test-em-toggle-comment-next-dispatches-elisp]]
+- [[file:test-emacs-message-main.el::test-em-toggle-comment-next-dispatches-python][test-em-toggle-comment-next-dispatches-python]]
 - [[file:test-emacs-message-main.el::test-em-toggle-at-point-dispatches-elisp][test-em-toggle-at-point-dispatches-elisp]]
 - [[file:test-emacs-message-main.el::test-em-toggle-at-point-dispatches-python][test-em-toggle-at-point-dispatches-python]]
-*** test-emacs-message-python.el (5 tests)
-- [[file:test-emacs-message-python.el::test--em-toggle-at-point-python-active-to-comment][test--em-toggle-at-point-python-active-to-comment]]
-- [[file:test-emacs-message-python.el::test--em-toggle-at-point-python-comment-to-active][test--em-toggle-at-point-python-comment-to-active]]
-- [[file:test-emacs-message-python.el::test--em-toggle-all-python][test--em-toggle-all-python]]
-- [[file:test-emacs-message-python.el::test--em-enable-all-python][test--em-enable-all-python]]
-- [[file:test-emacs-message-python.el::test--em-disable-all-python][test--em-disable-all-python]]
+- [[file:test-emacs-message-main.el::test-em-uncomment-next-dispatches-elisp][test-em-uncomment-next-dispatches-elisp]]
+- [[file:test-emacs-message-main.el::test-em-uncomment-next-dispatches-python][test-em-uncomment-next-dispatches-python]]
+- [[file:test-emacs-message-main.el::test-em-unsupported-language][test-em-unsupported-language]]
+*** test-emacs-message-python.el (4 tests)
+- [[file:test-emacs-message-python.el::test--em-find-next-print-clause-python][test--em-find-next-print-clause-python]]
+- [[file:test-emacs-message-python.el::test--em-find-next-print-clause-python-multi-line][test--em-find-next-print-clause-python-multi-line]]
+- [[file:test-emacs-message-python.el::test--em-toggle-comment-next-python][test--em-toggle-comment-next-python]]
+- [[file:test-emacs-message-python.el::test--em-toggle-buffer-python][test--em-toggle-buffer-python]]
