@@ -1,91 +1,47 @@
 <!-- ---
-!-- Timestamp: 2025-03-01 19:59:50
+!-- Timestamp: 2025-03-03 01:09:09
 !-- Author: ywatanabe
-!-- File: /home/ywatanabe/.dotfiles/.emacs.d/lisp/emacs-test/README.md
+!-- File: /home/ywatanabe/.dotfiles/.emacs.d/lisp/emacs-message/README.md
 !-- --- -->
 
-# Emacs Test
+# Emacs Message
 
-[![Build Status](https://github.com/ywatanabe1989/emacs-test/workflows/tests/badge.svg)](https://github.com/ywatanabe1989/emacs-test/actions)
+[![Build Status](https://github.com/ywatanabe1989/emacs-message/workflows/tests/badge.svg)](https://github.com/ywatanabe1989/emacs-message/actions)
 
-A testing framework for Emacs Lisp projects that integrates with ERT (Emacs Lisp Regression Testing).
-
-## Examples
-- Buffer Test
-  - [`example-buffer.org`](./examples/elisp-test-results-buffer.org)
-  - [`example-buffer.pdf`](./examples/elisp-test-results-buffer.pdf)
-
-- Multiple Test Files and Multiple ERT Cases
-  - [`example-multiple.org`](./examples/elisp-test-results-with-error.org)
-  - [`example-multiple.pdf`](./examples/elisp-test-results-with-error.pdf)
+An Elisp package for toggling/enabling/diabling printing statements.
 
 ## Installation
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/username/emacs-test.git ~/.emacs.d/lisp/emacs-test
+git clone https://github.com/ywatanabe1989/emacs-message.git ~/.emacs.d/lisp/emacs-message
 ```
 
 2. Add to your init.el:
 ```elisp
-(add-to-list 'load-path "~/.emacs.d/lisp/emacs-test")
-(require 'elisp-test)
+(add-to-list 'load-path "~/.emacs.d/lisp/emacs-message")
+(require 'emacs-message)
 ```
 
 ## Usage
 
-#### Interactive Mode
+### Interactive Commands
 
-1. Run tests on current directory:
-```elisp
-(et-test)
-```
+| Command | Description |
+|---------|-------------|
+| `M-x em-toggle-at-point` | Toggle comment status of message statement at cursor position |
+| `M-x em-toggle-all` | Toggle all message statements in the buffer |
+| `M-x em-enable-all` | Enable (uncomment) all message statements in buffer |
+| `M-x em-disable-all` | Disable (comment out) all message statements in buffer |
 
-2. Run tests on specific path:
-```elisp
-(et-test "~/projects/my-elisp-project/test-example.el")
-(et-test "~/projects/my-elisp-project/tests/") ; apply to child test files recursively 
-```
+### Supported Languages
 
-3. Using Dired:
-Mark test files/directories with `m` -> `M-x et-test`
+| Language | Target Statement |
+|----------|------------------|
+| Emacs Lisp | `(message ...)` |
+| Python | `print(...)` |
 
-#### Batch Mode
-
-Create a `run-tests.el`:
-```elisp
-(setq ert-batch-print-level nil)
-(setq ert-batch-print-length nil)
-(load "~/.emacs.d/lisp/emacs-test/elisp-test.el")
-(et-test "~/path/to/tests")
-```
-
-Run from command line:
-```bash
-emacs -Q --batch -l run-tests.el
-```
-
-## Configurations
-
-#### Example Key Bindings
-
-``` elisp
-(global-set-key (kbd "C-c C-t") #'et-test)
-(global-set-key (kbd "C-M-t") #'et--run-buffer)
-```
-
-#### Custom Variables
-
-Customize via `M-x customize-group RET elisp-test`:
-
-- `et-timeout-sec`: Test timeout (default: 10s)
-- `et-test-file-expressions`: Test file patterns
-- `et-test-file-exclude-expressions`: Exclusion patterns
-- `et-results-org-path`: Results file location
-- `et-results-org-path-dired`: Results file location
-- `et-buffer-name`: Test buffer name
-
-## License
+## Contact
 
 Yusuke Watanabe (ywatanabe@alumni.u-tokyo.ac.jp)
 
