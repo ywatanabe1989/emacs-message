@@ -1,9 +1,9 @@
 ;;; -*- coding: utf-8; lexical-binding: t -*-
 ;;; Author: ywatanabe
-;;; Timestamp: <2025-03-03 08:15:56>
+;;; Timestamp: <2025-03-03 08:39:23>
 ;;; File: /home/ywatanabe/.dotfiles/.emacs.d/lisp/emacs-message/tests/test-emacs-message-python.el
 
-(ert-deftest test--em-find-next-print-clause-python
+(ert-deftest test--em-find-next-message-clause-python
     ()
   "Test the print clause finder on single-line print statements."
   (let
@@ -19,7 +19,7 @@
              (point-min))
             (let
                 ((bounds
-                  (--em-find-next-print-clause-python)))
+                  (--em-find-next-message-clause-python)))
               (should bounds)
               (should
                (=
@@ -34,7 +34,7 @@
               (kill-buffer))))
       (delete-file temp-file))))
 
-(ert-deftest test--em-find-next-print-clause-python-multi-line
+(ert-deftest test--em-find-next-message-clause-python-multi-line
     ()
   "Test the print clause finder on multi-line print statements."
   (let
@@ -51,7 +51,7 @@
              (point-min))
             (let
                 ((bounds
-                  (--em-find-next-print-clause-python)))
+                  (--em-find-next-message-clause-python)))
               (should bounds)
               (should
                (=
