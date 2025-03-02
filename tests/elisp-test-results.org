@@ -1,0 +1,41 @@
+* Test Results Summary
+
+- Passed: 21
+- Failed: 0
+- Skipped: 0
+- Timeout: 0
+- Duplicates: 0
+- Total: 21
+- Success Rate: 100.0%
+
+* Test Coverage Metrics
+
+- Test Files: 4
+- Test Density: 5.25 tests per file
+
+** Passed Tests (21)
+*** test-emacs-message.el (5 tests)
+- [[file:test-emacs-message.el::test-emacs-message-loadable][test-emacs-message-loadable]]
+- [[file:test-emacs-message.el::test-emacs-message-elisp-loadable][test-emacs-message-elisp-loadable]]
+- [[file:test-emacs-message.el::test-emacs-message-python-loadable][test-emacs-message-python-loadable]]
+- [[file:test-emacs-message.el::test-emacs-message-main-loadable][test-emacs-message-main-loadable]]
+- [[file:test-emacs-message.el::test-emacs-message-functions-exist][test-emacs-message-functions-exist]]
+*** test-emacs-message-elisp.el (5 tests)
+- [[file:test-emacs-message-elisp.el::test--em-toggle-at-point-elisp-active-to-comment][test--em-toggle-at-point-elisp-active-to-comment]]
+- [[file:test-emacs-message-elisp.el::test--em-toggle-at-point-elisp-comment-to-active][test--em-toggle-at-point-elisp-comment-to-active]]
+- [[file:test-emacs-message-elisp.el::test--em-toggle-all-elisp][test--em-toggle-all-elisp]]
+- [[file:test-emacs-message-elisp.el::test--em-enable-all-elisp][test--em-enable-all-elisp]]
+- [[file:test-emacs-message-elisp.el::test--em-disable-all-elisp][test--em-disable-all-elisp]]
+*** test-emacs-message-main.el (6 tests)
+- [[file:test-emacs-message-main.el::test--em-get-language-type-elisp][test--em-get-language-type-elisp]]
+- [[file:test-emacs-message-main.el::test--em-get-language-type-elisp-by-get-language-type][test--em-get-language-type-elisp-by-get-language-type]]
+- [[file:test-emacs-message-main.el::test--em-get-language-type-python][test--em-get-language-type-python]]
+- [[file:test-emacs-message-main.el::test--em-get-language-type-unsupported][test--em-get-language-type-unsupported]]
+- [[file:test-emacs-message-main.el::test-em-toggle-at-point-dispatches-elisp][test-em-toggle-at-point-dispatches-elisp]]
+- [[file:test-emacs-message-main.el::test-em-toggle-at-point-dispatches-python][test-em-toggle-at-point-dispatches-python]]
+*** test-emacs-message-python.el (5 tests)
+- [[file:test-emacs-message-python.el::test--em-toggle-at-point-python-active-to-comment][test--em-toggle-at-point-python-active-to-comment]]
+- [[file:test-emacs-message-python.el::test--em-toggle-at-point-python-comment-to-active][test--em-toggle-at-point-python-comment-to-active]]
+- [[file:test-emacs-message-python.el::test--em-toggle-all-python][test--em-toggle-all-python]]
+- [[file:test-emacs-message-python.el::test--em-enable-all-python][test--em-enable-all-python]]
+- [[file:test-emacs-message-python.el::test--em-disable-all-python][test--em-disable-all-python]]
