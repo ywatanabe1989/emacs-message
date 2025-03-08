@@ -635,3 +635,4 @@ flycheck_*.el
 !.gitkeep
 
 # EOFtests/.old/
+playground/
