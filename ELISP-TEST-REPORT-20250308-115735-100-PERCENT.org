@@ -1,24 +1,20 @@
 #+TITLE: Elisp Test Report
 #+AUTHOR: ywatanabe
-#+DATE: 2025-03-03 08:40:10Created by https://github.com/ywatanabe1989/emacs-test
+#+DATE: 2025-03-08 11:57:40 Created by https://github.com/ywatanabe1989/emacs-test
 
 * Test Results Summary
 
-- Passed: 36
+- Passed: 47
 - Failed: 0
 - Skipped: 0
-- Timeout: 0
+- Timeout (= 10 s): 0
 - Duplicates: 0
-- Total: 36
+- Total: 47
+- Total Time: 2.13 seconds
 - Success Rate: 100.0%
 
-* Test Coverage Metrics
-
-- Test Files: 4
-- Test Density: 9.00 tests per file
-
-** Passed Tests (36)
-*** test-emacs-message-elisp.el (10 tests)
+* Passed Tests (47)
+** test-emacs-message-elisp.el (10 tests)
 - [[file:tests/test-emacs-message-elisp.el::test-elisp-find-next-message-clause][test-elisp-find-next-message-clause]]
 - [[file:tests/test-emacs-message-elisp.el::test-elisp-find-next-message-clause-multiline][test-elisp-find-next-message-clause-multiline]]
 - [[file:tests/test-emacs-message-elisp.el::test-elisp-commented-out-p][test-elisp-commented-out-p]]
@@ -29,7 +25,7 @@
 - [[file:tests/test-emacs-message-elisp.el::test-elisp-toggle-buffer][test-elisp-toggle-buffer]]
 - [[file:tests/test-emacs-message-elisp.el::test-elisp-uncomment-buffer][test-elisp-uncomment-buffer]]
 - [[file:tests/test-emacs-message-elisp.el::test-elisp-comment-out-buffer][test-elisp-comment-out-buffer]]
-*** test-emacs-message-main.el (18 tests)
+** test-emacs-message-main.el (18 tests)
 - [[file:tests/test-emacs-message-main.el::test--em-get-language-type-elisp-by-mode][test--em-get-language-type-elisp-by-mode]]
 - [[file:tests/test-emacs-message-main.el::test--em-get-language-type-elisp-by-filename][test--em-get-language-type-elisp-by-filename]]
 - [[file:tests/test-emacs-message-main.el::test--em-get-language-type-python-by-mode][test--em-get-language-type-python-by-mode]]
@@ -48,12 +44,24 @@
 - [[file:tests/test-emacs-message-main.el::test-em-uncomment-next-dispatches-elisp][test-em-uncomment-next-dispatches-elisp]]
 - [[file:tests/test-emacs-message-main.el::test-em-uncomment-next-dispatches-python][test-em-uncomment-next-dispatches-python]]
 - [[file:tests/test-emacs-message-main.el::test-em-unsupported-language][test-em-unsupported-language]]
-*** test-emacs-message-python.el (4 tests)
+** test-emacs-message-python.el (4 tests)
 - [[file:tests/test-emacs-message-python.el::test--em-find-next-message-clause-python][test--em-find-next-message-clause-python]]
 - [[file:tests/test-emacs-message-python.el::test--em-find-next-message-clause-python-multi-line][test--em-find-next-message-clause-python-multi-line]]
 - [[file:tests/test-emacs-message-python.el::test--em-toggle-comment-next-python][test--em-toggle-comment-next-python]]
 - [[file:tests/test-emacs-message-python.el::test--em-toggle-buffer-python][test--em-toggle-buffer-python]]
-*** test-emacs-message.el (4 tests)
+** test-emacs-message-shell.el (11 tests)
+- [[file:tests/test-emacs-message-shell.el::test-shell-find-next-message-clause][test-shell-find-next-message-clause]]
+- [[file:tests/test-emacs-message-shell.el::test-shell-commented-out-p][test-shell-commented-out-p]]
+- [[file:tests/test-emacs-message-shell.el::test-shell-comment-out-next][test-shell-comment-out-next]]
+- [[file:tests/test-emacs-message-shell.el::test-shell-uncomment-next][test-shell-uncomment-next]]
+- [[file:tests/test-emacs-message-shell.el::test-shell-toggle-comment-next-commented][test-shell-toggle-comment-next-commented]]
+- [[file:tests/test-emacs-message-shell.el::test-shell-toggle-comment-next-uncommented][test-shell-toggle-comment-next-uncommented]]
+- [[file:tests/test-emacs-message-shell.el::test-src-toggle-buffer][test-src-toggle-buffer]]
+- [[file:tests/test-emacs-message-shell.el::test-sh-toggle-buffer][test-sh-toggle-buffer]]
+- [[file:tests/test-emacs-message-shell.el::test-shell-uncomment-buffer][test-shell-uncomment-buffer]]
+- [[file:tests/test-emacs-message-shell.el::test-shell-comment-out-buffer][test-shell-comment-out-buffer]]
+- [[file:tests/test-emacs-message-shell.el::test-shell-toggle-at-point][test-shell-toggle-at-point]]
+** test-emacs-message.el (4 tests)
 - [[file:tests/test-emacs-message.el::test-emacs-message-loadable][test-emacs-message-loadable]]
 - [[file:tests/test-emacs-message.el::test-emacs-message-elisp-loadable][test-emacs-message-elisp-loadable]]
 - [[file:tests/test-emacs-message.el::test-emacs-message-python-loadable][test-emacs-message-python-loadable]]
